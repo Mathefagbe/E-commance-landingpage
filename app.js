@@ -5,9 +5,17 @@ const empty = document.querySelector(".cartcontainer>p")
 const itemcont = document.querySelector(".cartwithcheckout")
 var itemNum = document.getElementById("cartNum")
 
+
+
+
+
+
 //INITIAL SCR FOR THE CART
 var newsrc = document.querySelector(".thumbnail>div>img").src
+// var remove=document.querySelector("#removeid")
 
+
+//THE CART ICON
 cart.addEventListener("click", (e) => {
     if (e.target.id === "on") {
         cartcontain.style.display = "block"
@@ -20,13 +28,18 @@ cart.addEventListener("click", (e) => {
 })
 
 
+//
 function cartitem() {
     if (cartitems.length > 0) {
         empty.style.display = "none"
         itemcont.style.display = "flex"
         Array.from(cartitems).forEach((e) =>
             e.style.display = "flex"
+
         )
+    } else {
+        itemcont.style.display = "none"
+        empty.style.display = "block"
     }
 
 }
@@ -52,11 +65,14 @@ add.addEventListener("click", (e) => {
 
 })
 
+
 const amount = 125
+let cartcheck = document.querySelector(".cartwithcheckout>div")
+
 addtocart.addEventListener("click", (e) => {
-    // e.preventDefault
-    let cartcheck = document.querySelector(".cartwithcheckout>div")
-    //create an element
+
+
+    // create an element
     let divcart = document.createElement("div")
     divcart.className = "filledcart"
 
@@ -69,6 +85,9 @@ addtocart.addEventListener("click", (e) => {
 
     //create the second inner element
     let divname = document.createElement("div")
+    // divname.style="margin-right:30px"
+
+
     let newitemname = document.createElement("p")
     newitemname.className = "itemname"
     newitemname.textContent = "Fall Limited Edition Sneakers"
@@ -91,12 +110,19 @@ addtocart.addEventListener("click", (e) => {
 
 
 
+    let removediv = document.createElement("div")
+    removediv.innerHTML = `<svg class="remove" onclick="remove()" width="14" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M0 2.625V1.75C0 1.334.334 1 .75 1h3.5l.294-.584A.741.741 0 0 1 5.213 0h3.571a.75.75 0 0 1 .672.416L9.75 1h3.5c.416 0 .75.334.75.75v.875a.376.376 0 0 1-.375.375H.375A.376.376 0 0 1 0 2.625Zm13 1.75V14.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 14.5V4.375C1 4.169 1.169 4 1.375 4h11.25c.206 0 .375.169.375.375ZM4.5 6.5c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Z" id="a"/></defs><use fill="#C3CAD9" fill-rule="nonzero" xlink:href="#a"/></svg>`
+
+
 
     divimg.appendChild(itemimg)
     divname.appendChild(newitemname)
     divname.appendChild(newprice)
+
     divcart.appendChild(divimg)
     divcart.appendChild(divname)
+    divcart.appendChild(removediv)
+    
     cartcheck.appendChild(divcart)
 
 
@@ -159,7 +185,7 @@ const boxcontainer = document.querySelector(".boxcontainer")
 
 menu.addEventListener("click", (e) => {
 
-    boxcontainer.style = "background-color:rgba(47, 79, 79, 0.382);"
+    boxcontainer.style = "background-color:rgba(0, 0, 0, 0.19);"
     navigate.style.width = "70vw"
 })
 
@@ -169,3 +195,13 @@ closemenu.addEventListener("click", (e) => {
     boxcontainer.style = "background-color:white"
     navigate.style.width = "0"
 })
+
+
+function remove() {
+    const removebtn = document.querySelector(".remove")
+    const removebtnContainer = removebtn.parentElement;
+    cartcheck.removeChild(removebtnContainer.parentElement)
+    itemNum.textContent = cartitems.length
+    cartitem()
+
+}
